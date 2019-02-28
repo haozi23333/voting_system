@@ -1,0 +1,7 @@
+# IDEA 项目文件
+.idea
+# Ignore Mac OS desktop services store
+.DS_Store
+
+# nodejs 依赖文件
+node_modules
