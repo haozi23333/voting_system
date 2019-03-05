@@ -13,7 +13,7 @@ module.exports = {
    * 邮件相关参数
    * 参数详见  https://nodemailer.com/smtp/
    */
-  email: {
+  mail: {
     smtp: {
       host: '',
       port: 587,

@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
 
 const user_schema = new Schema({
   /**
@@ -33,7 +33,7 @@ user_schema.index({ email: 1 }, { unique: true });
 // 自动更新时间
 user_schema.pre('save', (next) => {
   this.update_at = Date.now();
-  next()
+  next();
 });
 
 model('User', user_schema);

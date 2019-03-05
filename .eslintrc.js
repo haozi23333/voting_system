@@ -13,5 +13,7 @@ module.exports = {
         "ecmaVersion": 2018
     },
     "rules": {
+      "camelcase": 0,
+      "no-underscore-dangle": 0
     }
 };
