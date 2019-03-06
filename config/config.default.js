@@ -15,18 +15,17 @@ module.exports = {
    */
   mail: {
     smtp: {
-      host: '',
+      host: 'smtp.haozi.conoha.io',
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: '', // generated ethereal user
-        pass: '', // generated ethereal password
+        user: 'vs@haozi.dev', // generated ethereal user
+        pass: ',CEsWjxf?!^eV3]zKGtd', // generated ethereal password
       },
       tls: {
         rejectUnauthorized: false,
       },
     },
-
   },
   database: {
     mongo: {

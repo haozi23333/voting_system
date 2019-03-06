@@ -10,7 +10,7 @@ module.exports = {};
  * @returns {Buffer | string | PromiseLike<ArrayBuffer>}
  */
 module.exports.gen_cecurity_password = function (str) {
-  return createHmac('md5', config.security.user_salt).update(str).digest();
+  return createHmac('md5', config.security.user_salt).update(str).digest().toString('hex');
 };
 
 /**
@@ -19,5 +19,5 @@ module.exports.gen_cecurity_password = function (str) {
  * @returns {string}
  */
 module.exports.gen_cecurity_access_token = function (user) {
-  return [randomBytes(32).toString('hex'), user._id, moment().add(7, 'days').toDate()].join().toString('base64');
+  return [randomBytes(32).toString('hex'), user._id, moment().add(7, 'days').toDate()];
 };

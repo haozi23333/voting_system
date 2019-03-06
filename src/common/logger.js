@@ -7,14 +7,25 @@ const path = require('path');
 const config = require('../../config');
 
 log4js.configure({
-  appenders: [
-    { type: 'console' },
-    { type: 'file', filename: path.join(config.log.dir, 'service.log'), category: 'service' },
-  ],
+  appenders: {
+    stdout: {
+      type: 'stdout'
+    },
+    vs: {
+      type: 'file',
+      filename: path.join(config.log.dir, 'service.log')
+    }
+  },
+  categories: {
+    default: {
+      appenders: ['vs', 'stdout'],
+      level: 'all'
+    }
+  }
 });
 
-const logger = log4js.getLogger('service');
+const logger = log4js.getLogger('vs');
 
-logger.level = config.debug && config.env !== 'test' ? 'DEBUG' : 'ERROR';
+logger.level = 'all'
 
 module.exports = logger;

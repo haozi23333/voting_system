@@ -4,7 +4,7 @@ const { send_register_mail } = require('./email');
 const redis = require('./redis');
 const redis_keys = require('../../config/redis_keys');
 const error_code = require('../../config/error_codes');
-
+const http_error = require('../common/error')
 const security = require('../common/security');
 
 module.exports = {};
@@ -16,12 +16,12 @@ module.exports = {};
  * @param email
  * @returns {Promise<void>}
  */
-module.exports.register = async (username, password, email) => {
+module.exports.register = async (username, email, password) => {
   const salt = randomBytes(8).toString('hex');
   const secure_password = security.gen_cecurity_password(password + salt);
 
   if (await User.findOne({ email })) {
-    throw new Error(error_code.REGISTER_EMAIL_EXISTS);
+    throw new http_error('重复的邮箱  已经被注册', error_code.REGISTER_EMAIL_EXISTS, null, 400);
   }
   const user = new User({
     username,
@@ -48,18 +48,20 @@ module.exports.login = async (email, password) => {
   });
 
   if (user.password !== security.gen_cecurity_password(password + user.salt)) {
-    throw new Error(error_code.LOGIN_FAILD_PASSWORD_ERROR);
+    throw new http_error('用户名或密码错误', error_code.LOGIN_FAILD_PASSWORD_ERROR, null, 400);
   }
 
   const access_token = security.gen_cecurity_access_token(user);
   const res = {
     _id: user._id,
     email: user.email,
-    access_token,
+    access_token: access_token[0],
+    is_register_verify: user.is_register_verify
   };
 
-  await redis.set(redis_keys.user_session_key(user), JSON.stringify(res), 'EX', 7 * 60 * 60 * 24 * 1000);
+  await redis.set(redis_keys.user_session_key(user._id), JSON.stringify(res), 'EX', 7 * 60 * 60 * 24 * 1000);
 
+  res.access_token = Buffer.from(access_token.join(',')).toString('base64')
   return res;
 };
 
@@ -74,7 +76,6 @@ module.exports.login_with_access_token = async (user_id, access_token) => {
   if (!user_str) {
     return null;
   }
-
   const user = JSON.parse(user_str);
   if (user.access_token !== access_token) {
     return null;

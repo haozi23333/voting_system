@@ -20,7 +20,7 @@ const vote_schema = new Schema({
   /**
    * 创建者
    */
-  create_by: { type: Types.ObjectId },
+  create_by: { type: Types.ObjectId, ref: 'User' },
   /**
    * 创建记录时间
    */

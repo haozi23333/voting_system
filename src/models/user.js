@@ -4,7 +4,7 @@ const user_schema = new Schema({
   /**
    * 用户名
    */
-  name: { type: String },
+  username: { type: String },
   /**
    * 用户密码
    */
@@ -17,6 +17,13 @@ const user_schema = new Schema({
    * 用户邮箱
    */
   email: { type: String },
+  /**
+   * 是否邮箱已经验证了
+   */
+  is_register_verify: {
+    type: Number,
+    default: 0
+  },
   /**
    * 创建时间
    */

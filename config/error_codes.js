@@ -4,6 +4,10 @@ module.exports = {
    */
   UNCAUGHT_ERROR: 500,
   /**
+   * 参数丢失或者不匹配
+   */
+  MISS_PARAMS: 501,
+  /**
    * 登陆密码错误
    */
   LOGIN_FAILD_PASSWORD_ERROR: 3001,
@@ -11,6 +15,10 @@ module.exports = {
    * 邮箱已被占用
    */
   REGISTER_EMAIL_EXISTS: 3002,
+  /**
+   * 用户已经验证过邮箱了
+   */
+  VERIFIED_MAIL: 3003,
   /**
    * AccessToken 无效
    */
