@@ -8,7 +8,7 @@ module.exports = function load_routers(app) {
    * 基础健康检查
    */
   app.use('/api/ping', (req, res, next) => {
-    res.status(200).send({ code: 200, timestamp: Date.now() })
+    res.status(200).send({ code: 200, timestamp: Date.now() });
     return next();
   });
 

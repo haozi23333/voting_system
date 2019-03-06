@@ -45,6 +45,12 @@ module.exports.register_verify = async (req, res, next) => {
         access_token,
       }), 'EX', 7 * 24 * 3600);
     }
+    res.status(200).send({
+      code: 200,
+      data: {
+        msg: '验证成功',
+      },
+    });
   }
   return next();
 };

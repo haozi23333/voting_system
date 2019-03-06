@@ -1,0 +1,20 @@
+version: 2
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+
+  redis:
+    image: redis
+    restart: always
+
+  app:
+    image: haozi23333/voting_system
+    links:
+      - mongo
+      - redis
+    ports:
+      - 3000:3000
+    restart: always
+

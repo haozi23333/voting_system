@@ -1,7 +1,8 @@
 # IDEA 项目文件
 .idea
+.nyc_output
 # Ignore Mac OS desktop services store
 .DS_Store
-
+config/config.haozi.js
 # nodejs 依赖文件
 node_modules

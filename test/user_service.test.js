@@ -1,5 +1,4 @@
 const test = require('ava');
-const crypto = require('crypto');
 const request = require('./request');
 const error_code = require('../config/error_codes');
 
@@ -17,23 +16,20 @@ test.serial.before(async () => {
   //     pass: account.pass,
   //   },
   // };
+
   /* eslint-disable */
   const app = require('../src/app');
   await app();
 });
 
-let user_register_info = {
-  username: crypto.randomBytes(15).toString('hex'),
-  password: crypto.randomBytes(15).toString('hex'),
-  email: `${crypto.randomBytes(4).toString('hex')}@haozi.moe`,
-}
+let user_register_info = require('./user_info')
+
 let register_verify_url = '';
 
 test.serial('测试注册 POST /api/user', async t => {
-  const data = await request.post('/user', user_register_info);
-  t.is(data.code, 200)
-  console.log(data)
-  register_verify_url = data.data.url.replace(/^.*(api)/, '');
+  const { code, data } = await request.post('/user', user_register_info);
+  t.is(code, 200)
+  register_verify_url = data.url.replace(/^.*(api)/, '');
 });
 
 test.serial('测试重复注册 POST /api/user', async t => {
@@ -45,8 +41,31 @@ test.serial('测试重复注册 POST /api/user', async t => {
 });
 
 test.serial('验证邮箱 GET /api/email/register_verify', async t => {
-  console.log(register_verify_url)
-  const data = await request.get(register_verify_url, user_register_info);
-  t.is(data.code, 200)
+  const { code } = await request.get(register_verify_url);
+  t.is(code, 200)
 })
 
+test.serial('登录 POST /session', async t => {
+  const { code, data } = await request.post('/session', {
+    email: user_register_info.email,
+    password: user_register_info.password
+  });
+  t.is(code, 200)
+  user_register_info.access_token = data.access_token;
+  user_register_info.headers = {
+    headers: {
+      'Content-Type': 'application/json',
+      'access-token': user_register_info.access_token
+    }
+  }
+})
+
+test.serial('登出 DELETE /session', async t => {
+  console.log(t.context)
+  const { code, data } = await request.delete('/session', {
+    headers: {
+      'access-token': user_register_info.access_token
+    }
+  })
+  t.is(code, 200)
+})
