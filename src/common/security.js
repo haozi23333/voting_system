@@ -1,6 +1,6 @@
 const { createHmac, randomBytes } = require('crypto');
+const moment = require('moment');
 const config = require('../../config');
-const moment = require('moment')
 
 module.exports = {};
 
@@ -9,15 +9,11 @@ module.exports = {};
  * @param str
  * @returns {Buffer | string | PromiseLike<ArrayBuffer>}
  */
-module.exports.gen_cecurity_password = function (str) {
-  return createHmac('md5', config.security.user_salt).update(str).digest().toString('hex');
-};
+module.exports.gen_cecurity_password = str => createHmac('md5', config.security.user_salt).update(str).digest().toString('hex');
 
 /**
  * 生成安全的登录token
  * @param user
- * @returns {string}
+ * @returns {*[]}
  */
-module.exports.gen_cecurity_access_token = function (user) {
-  return [randomBytes(32).toString('hex'), user._id, moment().add(7, 'days').toDate()];
-};
+module.exports.gen_cecurity_access_token = user => [randomBytes(32).toString('hex'), user._id, moment().add(7, 'days').toDate()];

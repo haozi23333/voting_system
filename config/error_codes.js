@@ -8,6 +8,10 @@ module.exports = {
    */
   MISS_PARAMS: 501,
   /**
+   * 参数错误
+   */
+  ERROR_PARAMS: 502,
+  /**
    * 登陆密码错误
    */
   LOGIN_FAILD_PASSWORD_ERROR: 3001,
@@ -20,6 +24,10 @@ module.exports = {
    */
   VERIFIED_MAIL: 3003,
   /**
+   * 需要先认证邮箱
+   */
+  UNVERIFIED_MAIL: 3004,
+  /**
    * AccessToken 无效
    */
   ACCESS_TOKEN_INVLID: 3003,
@@ -31,4 +39,4 @@ module.exports = {
    * 邮件服务异常
    */
   EMAIL_SERVICE_ERROR: 5001,
-}
+};

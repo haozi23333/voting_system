@@ -2,8 +2,9 @@ const path = require('path');
 
 module.exports = {
   env: process.ENV || 'development',
-  debug: false,
+  port: 3000,
 
+  debug: false,
   /**
    *  可以外部访问的 Url, 注册邮件等直接拼接的地址
    */
@@ -29,18 +30,18 @@ module.exports = {
   },
   database: {
     mongo: {
-      url: '',
+      url: 'mongodb://localhost:27017/zs',
     },
   },
   cache: {
     redis: {
-      url: '',
+      url: 'redis://127.0.0.1',
     },
   },
   security: {
     user_salt: '',
   },
   log: {
-    dir: path.join(__dirname, 'logs'),
+    dir: path.join(__dirname, '..', 'logs'),
   },
 };

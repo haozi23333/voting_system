@@ -1,7 +1,8 @@
 const Joi = require('joi');
 const user = require('../services/user');
 const error_code = require('../../config/error_codes');
-const http_error = require('../common/error')
+const HttpError = require('../common/error');
+
 module.exports = {};
 
 
@@ -21,14 +22,14 @@ module.exports.create_session = async (req, res, next) => {
   const { error, value } = Joi.validate(req.body, schema);
 
   if (error) {
-    throw new http_error('错误参数', error_code.MISS_PARAMS, null, 401);
+    throw new HttpError('错误参数', error_code.MISS_PARAMS, null, 401);
   }
   const { email, password } = value;
   res.status(200).send({
-    code: 0,
-    data: await user.login(email, password)
+    code: 200,
+    data: await user.login(email, password),
   });
-  await next();
+  return next();
 };
 
 
@@ -41,16 +42,16 @@ module.exports.create_session = async (req, res, next) => {
  */
 module.exports.delete_session = async (req, res, next) => {
   if (!req.user) {
-    throw new http_error('未登录, 无权限', error_code.NOT_LOGGED_IN, null, 401);
+    throw new HttpError('未登录, 无权限', error_code.NOT_LOGGED_IN, null, 401);
   }
   await user.logout(req.user._id);
 
   res.status(200).send({
     code: 200,
     data: {
-      msg: '登出成功'
-    }
-  })
+      msg: '登出成功',
+    },
+  });
   return next();
 };
 
@@ -66,4 +67,5 @@ module.exports.get_session = async (req, res, next) => {
     throw Error(error_code.NOT_LOGGED_IN);
   }
   await user.get_session(req.user._id);
-}
+  return next();
+};

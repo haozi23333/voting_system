@@ -4,32 +4,34 @@
  */
 const logger = require('../common/logger');
 const error_code = require('../../config/error_codes');
-const http_error = require('../common/error')
-const config = require('../../config')
+const HttpError = require('../common/error');
+const config = require('../../config');
 
-module.exports = async function error_handler(error, req, res, next) {
+module.exports = async function error_handler(err, req, res, next) {
+  let error = err;
   if (error.name === 'ValidationError') {
-    error = new http_error(error, error_code.MISS_PARAMS)
+    error = new HttpError(error, error_code.MISS_PARAMS);
   }
 
-  if (error instanceof http_error) {
+  if (error instanceof HttpError) {
     logger.error('[ERROR_HADLER] 出现错误 错误码', error.code, error.error, req.headers, req.body);
     if (error.code === error_code.MISS_PARAMS) {
-      error.status = 400
+      error.status = 400;
     }
     return res.status(error.status).send({
       code: error.code,
       data: {
         ...error.data,
-        msg: error.error
-      }
+        msg: error.error,
+      },
     });
   }
   logger.error('[ERROR_HADLER] 出现错误', error, req.header, req.body);
-  return res.status(500).send({
+  res.status(500).send({
     code: error_code.UNCAUGHT_ERROR,
     data: {
-      msg: config.env !== 'production' ? error : '出现未知异常'
-    }
+      msg: config.env !== 'production' ? error : '出现未知异常',
+    },
   });
-}
+  return next();
+};

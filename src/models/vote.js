@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose')
+const { Schema, model, Types } = require('mongoose');
 
 const vote_schema = new Schema({
   /**
@@ -8,7 +8,7 @@ const vote_schema = new Schema({
   /**
    * 候选人列表
    */
-  candidate: [ String ],
+  candidate: [String],
   /**
    * 开始时间
    */
@@ -39,7 +39,7 @@ vote_schema.index({ create_by: 1 });
 // 自动更新时间
 vote_schema.pre('save', (next) => {
   this.update_at = Date.now();
-  next()
+  next();
 });
 
 model('Vote', vote_schema);

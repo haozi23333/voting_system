@@ -17,6 +17,13 @@ const keys = {
    * @returns {string}
    */
   user_register_email_key: user_id => `${prefix}user_register_${user_id}`,
+
+  /**
+   * 投票计数器
+   * @param vote_id
+   * @returns {string}
+   */
+  vote_count_key: vote_id => `${prefix}vote_counter:${vote_id}`,
 };
 
 module.exports = keys;

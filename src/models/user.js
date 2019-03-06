@@ -22,7 +22,7 @@ const user_schema = new Schema({
    */
   is_register_verify: {
     type: Number,
-    default: 0
+    default: 0,
   },
   /**
    * 创建时间

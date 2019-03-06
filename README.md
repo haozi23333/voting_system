@@ -4,14 +4,23 @@
 
 > 这其实是一个面试题来着的, 有需要的可以参考一下~
 
-[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
-[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com/)
+
 
 # check_list
 
 
-- [ ] 用户系统
-    - [ ] 注册
-        - [ ] 注册邮件的 Pug 模板(先临时丢 `assets`,  这个要整合到管理后台做动态配置的)
+- [x] 用户系统
+    - [x] 注册
+    - [x] 登录
+    - [x] 邮箱验证
+    - [ ] 单元测试
 - [ ] 投票系统
-- [ ] 管理系统
+
+    - [ ] 增删查改
+    - [ ] 缓存
+    - [ ] 单元测试
+- [ ] 管理系统(放弃)
+- [ ] 部署
+
+    - [ ] 文档
+    - [ ] docker-compose

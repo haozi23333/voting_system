@@ -4,11 +4,11 @@
  */
 const logger = require('../common/logger');
 const error_code = require('../../config/error_codes');
-const http_error = require('../common/error')
+const HttpError = require('../common/error');
 
-const User = require('../services/user')
+const User = require('../services/user');
 
-module.exports = async function (req, res, next) {
+module.exports = async function user_auth(req, res, next) {
   const access_token_str = req.header('access-token');
   if (access_token_str) {
     try {
@@ -21,16 +21,16 @@ module.exports = async function (req, res, next) {
           return next();
         }
       }
-      throw new http_error('AccessToken 异常, 请重新登录', error_code.ACCESS_TOKEN_INVLID)
+      throw new HttpError('AccessToken 异常, 请重新登录', error_code.ACCESS_TOKEN_INVLID);
     } catch (e) {
       logger.info(`[UserAuth] ${access_token_str}  异常`);
       return res.status(400).send({
         code: error_code.ACCESS_TOKEN_INVLID,
         data: {
-         msg: '异常的 AccessToekn 或已过期'
-        }
+          msg: '异常的 AccessToekn 或已过期',
+        },
       });
     }
   }
   return next();
-}
+};

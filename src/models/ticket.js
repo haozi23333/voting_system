@@ -1,10 +1,14 @@
-const { Schema, model, Types } = require('mongoose')
+const { Schema, model } = require('mongoose');
 
 const ticket_schema = new Schema({
   /**
    * 用户 ID
    */
-  user_id: { type: Types.ObjectId },
+  user_id: { type: String },
+  /**
+   * 投票ID
+   */
+  vote_id: { type: String },
   /**
    * 结果列表
    */
@@ -19,10 +23,16 @@ const ticket_schema = new Schema({
   update_at: { type: Date, default: Date.now },
 });
 
+// 创建索引
+ticket_schema.index({ user_id: 1 });
+ticket_schema.index({ vote_id: 1 });
+ticket_schema.index({ vote_id: 1, user_id: 1 });
+ticket_schema.index({ vote_id: 1, values: 1 });
+
 // 自动更新时间
 ticket_schema.pre('save', (next) => {
   this.update_at = Date.now();
-  next()
+  next();
 });
 
 model('Ticket', ticket_schema);

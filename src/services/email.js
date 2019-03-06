@@ -15,7 +15,11 @@ async function send_register_mail(user) {
   const token = crypto.randomBytes(32).toString('hex');
   await redis.set(redis_keys.user_register_email_key(user._id), token, 'EX', 30 * 60 * 1000);
 
-  const url = `${config.export_url}/email/register_verify?token=${Buffer.from(user._id + ',' + token).toString('base64')}`
+  const url = `${config.export_url}/api/email/register_verify?token=${Buffer.from(`${user._id},${token}`).toString('base64')}`;
+
+  if (config.env === 'test') {
+    return url;
+  }
   const message = {
     from: `Voting System <${config.mail.smtp.auth.user}>`,
     to: user.email,
@@ -25,6 +29,7 @@ async function send_register_mail(user) {
   };
 
   await transporter.sendMail(message);
+  return url;
 }
 
 module.exports = {

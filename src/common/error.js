@@ -5,9 +5,9 @@
  * @param data   返回的数据
  * @param status  http Code
  */
-module.exports = function error(error, code, data = { }, status = 500) {
+module.exports = function HttpError(error, code, data = { }, status = 500) {
   this.error = error;
   this.code = code;
   this.data = data;
   this.status = status;
-}
+};

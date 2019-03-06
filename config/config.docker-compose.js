@@ -1,4 +1,4 @@
-const base_config = require('./config.default')
+const base_config = require('./config.default');
 
 const config = {
   database: {
@@ -8,7 +8,7 @@ const config = {
   },
   cache: {
     redis: {
-      url: 'redis://127.0.0.1',
+      url: 'redis://127.0.0.1'
     },
   },
 };
