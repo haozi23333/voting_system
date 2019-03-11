@@ -54,7 +54,7 @@ export const create_vote = async (req, res, next) => {
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.create_vote = async (req, res, next) => {
+module.exports.update_vote = async (req, res, next) => {
   const { id } = req.params;
 
   if (!req.user) {
@@ -228,6 +228,17 @@ module.exports.create_ticket = async (req, res, next) => {
   });
   return next();
 };
+/**
+ * 修改投票
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<void>}
+ */
+module.exports.update_ticket = async (req, res, next) => {
+  // TODO 修改投出的票
+  await next();
+}
 
 /**
  * 分页查询票列表
