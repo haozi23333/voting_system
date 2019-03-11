@@ -1,9 +1,7 @@
-const Joi = require('joi');
-const user = require('../services/user');
-const error_code = require('../../config/error_codes');
-const HttpError = require('../common/error');
-
-module.exports = {};
+import Joi from "joi";
+import * as UserService from "../services/user";
+import error_code from "../../config/error_codes";
+import HttpError from "../common/error";
 
 
 /**
@@ -13,7 +11,7 @@ module.exports = {};
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.create_session = async (req, res, next) => {
+export const create_session = async (req, res, next) => {
   const schema = Joi.object().keys({
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.string().required(),
@@ -27,7 +25,7 @@ module.exports.create_session = async (req, res, next) => {
   const { email, password } = value;
   res.status(200).send({
     code: 200,
-    data: await user.login(email, password),
+    data: await UserService.login(email, password),
   });
   return next();
 };
@@ -40,11 +38,11 @@ module.exports.create_session = async (req, res, next) => {
  * @param next
  * @returns {Promise<*>}
  */
-module.exports.delete_session = async (req, res, next) => {
+export const delete_session = async (req, res, next) => {
   if (!req.user) {
     throw new HttpError('未登录, 无权限', error_code.NOT_LOGGED_IN, null, 401);
   }
-  await user.logout(req.user._id);
+  await UserService.logout(req.user._id);
 
   res.status(200).send({
     code: 200,
@@ -62,10 +60,10 @@ module.exports.delete_session = async (req, res, next) => {
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.get_session = async (req, res, next) => {
+export const get_session = async (req, res, next) => {
   if (!req.user) {
-    throw Error(error_code.NOT_LOGGED_IN);
+    throw new HttpError('未登录, 无权限', error_code.NOT_LOGGED_IN, null, 401);
   }
-  await user.get_session(req.user._id);
+  await UserService.get_session(req.user._id);
   return next();
 };

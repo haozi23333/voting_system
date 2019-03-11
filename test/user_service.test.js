@@ -1,6 +1,7 @@
-const test = require('ava');
-const request = require('./request');
-const error_code = require('../config/error_codes');
+import test from 'ava';
+import request from './request';
+import error_code from '../config/error_codes';
+import user_register_info from './user_info';
 
 test.serial.before(async () => {
   /**
@@ -21,9 +22,6 @@ test.serial.before(async () => {
   const app = require('../src/app');
   await app();
 });
-
-let user_register_info = require('./user_info')
-
 let register_verify_url = '';
 
 test.serial('测试注册 POST /api/user', async t => {

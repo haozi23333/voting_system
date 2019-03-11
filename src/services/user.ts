@@ -1,13 +1,15 @@
-const { randomBytes } = require('crypto');
-const { User } = require('../models');
-const { send_register_mail } = require('./email');
-const redis = require('./redis');
-const redis_keys = require('../../config/redis_keys');
-const error_code = require('../../config/error_codes');
-const HttpError = require('../common/error');
-const security = require('../common/security');
+import {randomBytes} from "crypto";
 
-module.exports = {};
+import {User} from "../models/user";
+
+import {send_register_mail} from "./email";
+
+import redis from "./redis";
+import redis_keys from "../../config/redis_keys";
+import error_code from "../../config/error_codes";
+import HttpError from "../common/error";
+import * as security from "../common/security";
+
 
 /**
  * 注册账户
@@ -16,7 +18,7 @@ module.exports = {};
  * @param email
  * @returns {Promise<void>}
  */
-module.exports.register = async (username, email, password) => {
+export const register = async (username, email, password) => {
   const salt = randomBytes(8).toString('hex');
   const secure_password = security.gen_cecurity_password(password + salt);
 
@@ -42,7 +44,7 @@ module.exports.register = async (username, email, password) => {
  * @param password
  * @returns {Promise<void>}
  */
-module.exports.login = async (email, password) => {
+export const login = async (email, password) => {
   const user = await User.findOne({
     email,
   });
@@ -71,7 +73,7 @@ module.exports.login = async (email, password) => {
  * @param access_token
  * @returns {Promise<*>}
  */
-module.exports.login_with_access_token = async (user_id, access_token) => {
+export const login_with_access_token = async (user_id, access_token) => {
   const user_str = await redis.get(redis_keys.user_session_key(user_id));
   if (!user_str) {
     return null;
@@ -88,11 +90,11 @@ module.exports.login_with_access_token = async (user_id, access_token) => {
  * @param user_id
  * @returns {Promise<*>}
  */
-module.exports.logout = async user_id => redis.del(redis_keys.user_session_key(user_id));
+export const logout = async user_id => redis.del(redis_keys.user_session_key(user_id));
 
 /**
  * 获取session
  * @param user_id
  * @returns {Promise<*>}
  */
-module.exports.get_session = async user_id => redis.get(redis_keys.user_session_key(user_id));
+export const get_session = async user_id => redis.get(redis_keys.user_session_key(user_id));

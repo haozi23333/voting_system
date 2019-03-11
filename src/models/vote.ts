@@ -1,4 +1,15 @@
-const { Schema, model, Types } = require('mongoose');
+import {model, Schema, Types, Document} from "mongoose";
+import {IUserDocument} from './user'
+
+export interface IVoteDocument extends Document{
+  name:  string,
+  candidate: [string],
+  start_time: Date,
+  end_time: Date,
+  create_by: IUserDocument
+  created_at: Date,
+  update_at: Date,
+}
 
 const vote_schema = new Schema({
   /**
@@ -42,4 +53,4 @@ vote_schema.pre('save', (next) => {
   next();
 });
 
-model('Vote', vote_schema);
+export const Vote = model<IVoteDocument>('Vote', vote_schema);

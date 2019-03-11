@@ -1,4 +1,4 @@
-const base_config = require('./config.default');
+import base_config = require('./config.default');
 
 const config = {
   mail: {

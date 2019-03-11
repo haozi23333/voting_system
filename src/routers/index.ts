@@ -1,7 +1,7 @@
-const session_router = require('./session');
-const user_router = require('./user');
-const email_router = require('./email');
-const vote_router = require('./vote');
+import session_router from "./session";
+import user_router from "./user";
+import email_router from "./email";
+import vote_router from "./vote";
 
 module.exports = function load_routers(app) {
   /**

@@ -2,9 +2,9 @@
  * 处理连接 redis
  */
 
-const IoRedis = require('ioredis');
-const logger = require('../common/logger');
-const config = require('../../config');
+import IoRedis from "ioredis";
+import logger from "../common/logger";
+import config from "../../config";
 
 const clinet = new IoRedis(config.cache.redis.url);
 
@@ -19,4 +19,4 @@ clinet.on('connect', () => {
   logger.info('[Redis] 连接 redis server 成功');
 });
 
-module.exports = clinet;
+export default clinet;

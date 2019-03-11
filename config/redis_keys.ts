@@ -4,7 +4,7 @@
 
 const prefix = 'vs@';
 
-const keys = {
+export default {
   /**
    * Redis 中用户登录 session 的 Key 名
    * @param user_id   用户 ID
@@ -26,4 +26,3 @@ const keys = {
   vote_count_key: vote_id => `${prefix}vote_counter:${vote_id}`,
 };
 
-module.exports = keys;

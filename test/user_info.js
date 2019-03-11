@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 module.exports = {
   username: crypto.randomBytes(15).toString('hex'),

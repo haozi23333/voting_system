@@ -1,8 +1,8 @@
-const error_code = require('../../config/error_codes');
-const HttpError = require('../common/error');
-const redis = require('../services/redis');
-const redis_keys = require('../../config/redis_keys');
-const { User } = require('../models');
+import error_code from '../../config/error_codes';
+import HttpError from '../common/error';
+import redis from '../services/redis';
+import redis_keys from '../../config/redis_keys';
+import { User } from "../models/user";
 
 module.exports = {};
 
@@ -13,13 +13,12 @@ module.exports = {};
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.register_verify = async (req, res, next) => {
+export const register_verify = async (req, res, next) => {
   if (!req.query && !req.query.token) {
     throw new HttpError('缺少 token 参数', error_code.MISS_PARAMS);
   }
   const args = Buffer.from(req.query.token, 'base64').toString();
   const [user_id, virify_token] = args.split(',');
-
   const redis_key = redis_keys.user_register_email_key(user_id);
   const token = await redis.get(redis_key);
   const user = await User.findOne({ _id: user_id });

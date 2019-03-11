@@ -2,13 +2,12 @@
  * 用户登录 AccessToken 处理中间件
  * @returns {Promise<void>}
  */
-const logger = require('../common/logger');
-const error_code = require('../../config/error_codes');
-const HttpError = require('../common/error');
+import logger from "../common/logger";
+import error_code from "../../config/error_codes";
+import HttpError from "../common/error";
+import * as User  from "../services/user";
 
-const User = require('../services/user');
-
-module.exports = async function user_auth(req, res, next) {
+export default async function user_auth(req, res, next) {
   const access_token_str = req.header('access-token');
   if (access_token_str) {
     try {

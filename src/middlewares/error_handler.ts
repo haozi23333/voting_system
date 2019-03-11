@@ -2,10 +2,10 @@
  * 通用错误处理
  * @returns {Promise<void>}
  */
-const logger = require('../common/logger');
-const error_code = require('../../config/error_codes');
-const HttpError = require('../common/error');
-const config = require('../../config');
+import logger from '../common/logger';
+import error_code from '../../config/error_codes';
+import HttpError from '../common/error';
+import config from '../../config';
 
 module.exports = async function error_handler(err, req, res, next) {
   let error = err;

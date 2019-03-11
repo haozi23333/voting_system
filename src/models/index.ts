@@ -1,6 +1,9 @@
-const mongoose = require('mongoose');
-const config = require('../../config');
-const logger = require('../common/logger');
+import mongoose from "mongoose";
+import config from "../../config";
+import logger from "../common/logger";
+import user from "./user";
+import vote from "./vote";
+import ticket from "./ticket";
 
 mongoose.connect(config.database.mongo.url, {
   poolSize: 20,
@@ -14,11 +17,7 @@ mongoose.connect(config.database.mongo.url, {
   logger.info('[Database] 连接 Mongo 服务器成功');
 });
 
-require('./user');
-require('./vote');
-require('./ticket');
-
-module.exports = {
+export default {
   User: mongoose.model('User'),
   Vote: mongoose.model('Vote'),
   Ticket: mongoose.model('Ticket'),

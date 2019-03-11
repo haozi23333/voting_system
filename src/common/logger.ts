@@ -2,18 +2,18 @@
  * 设置日志
  */
 
-const log4js = require('log4js');
-const path = require('path');
-const config = require('../../config');
+import { configure, getLogger } from 'log4js';
+import { join } from 'path';
+import config from '../../config';
 
-log4js.configure({
+configure({
   appenders: {
     stdout: {
       type: 'stdout',
     },
     vs: {
       type: 'file',
-      filename: path.join(config.log.dir, 'service.log'),
+      filename: join(config.log.dir, 'service.log'),
     },
   },
   categories: {
@@ -24,8 +24,8 @@ log4js.configure({
   },
 });
 
-const logger = log4js.getLogger('vs');
+const logger = getLogger('vs');
 
 logger.level = 'all';
 
-module.exports = logger;
+export default logger;

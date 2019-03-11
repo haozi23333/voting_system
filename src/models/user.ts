@@ -1,6 +1,16 @@
-const { Schema, model } = require('mongoose');
+import {model, Schema, Document} from "mongoose";
 
-const user_schema = new Schema({
+export interface IUserDocument extends Document{
+  username: string,
+  password: string,
+  salt: string,
+  email: string,
+  is_register_verify: number,
+  created_at: Date,
+  update_at: Date,
+}
+
+const user_schema: Schema = new Schema({
   /**
    * 用户名
    */
@@ -43,4 +53,4 @@ user_schema.pre('save', (next) => {
   next();
 });
 
-model('User', user_schema);
+export const User = model<IUserDocument>('User', user_schema);

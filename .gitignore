@@ -6,3 +6,4 @@
 config/config.haozi.js
 # nodejs 依赖文件
 node_modules
+coverage

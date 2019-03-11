@@ -1,4 +1,8 @@
-const { Schema, model } = require('mongoose');
+import {model, Schema, Document, Types} from "mongoose";
+
+interface Tikc {
+  
+}
 
 const ticket_schema = new Schema({
   /**

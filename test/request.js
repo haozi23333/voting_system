@@ -1,6 +1,5 @@
 // module.exports = {}
-const axios = require('axios');
-
+import axios from 'axios';
 
 const request = axios.default.create({
   baseURL: 'http://127.0.0.1:3000/api',

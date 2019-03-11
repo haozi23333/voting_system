@@ -1,11 +1,13 @@
 FROM node:11.10.1-alpine
+MAINTAINER haozi.dev. <i@haozi.moe>
 WORKDIR /app
 
-# 安装依赖单独做一层
 COPY package*.json ./
+#RUN npm install --registry=https://registry.npm.taobao.org
 RUN npm install
-VOLUME ["/app/config"]
 COPY . .
+
+#VOLUME ["/app/config"]
 
 EXPOSE 3000
 

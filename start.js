@@ -1,1 +1,3 @@
-require('./src/app')();
+import src from './src/app';
+
+src();

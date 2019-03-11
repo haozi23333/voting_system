@@ -1,8 +1,8 @@
-const Joi = require('joi');
-const user = require('../services/user');
-const error_code = require('../../config/error_codes');
-const HttpError = require('../common/error');
-const config = require('../../config');
+import Joi from "joi";
+import user from "../services/user";
+import error_code from "../../config/error_codes";
+import HttpError from "../common/error";
+import config from "../../config";
 
 module.exports = {};
 
@@ -13,7 +13,7 @@ module.exports = {};
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.create_user = async (req, res, next) => {
+export const create_user = async (req, res, next) => {
   const schema = Joi.object().keys({
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     username: Joi.string().alphanum().min(3).max(30)

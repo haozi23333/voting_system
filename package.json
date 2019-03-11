@@ -16,7 +16,8 @@
     "log4js": "^4.0.2",
     "moment": "^2.24.0",
     "mongoose": "^5.4.17",
-    "nodemailer": "^5.1.1"
+    "nodemailer": "^5.1.1",
+    "tslint": "^5.13.1"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -26,7 +27,9 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "nyc": "^13.3.0",
-    "tap-nyan": "^1.1.0"
+    "tap-nyan": "^1.1.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.3.3333"
   },
   "scripts": {
     "test": "cross-env APP_ENV=test ava test/*.test.js --serial",

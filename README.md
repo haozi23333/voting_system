@@ -56,15 +56,13 @@
 
 #### 环境变量参数
 
-| 参数名     | 注释           | 值                           |
-| ---------- | -------------- | ---------------------------- |
-| APPENV     | 环境变量       | docker                       |
-| PORT       | 端口           | 3000                         |
-| EXPORT_URL | 外部访问的路径 | http://127.0.0.1:3000        |
-| MONGO_URL  | mongo 链接地址 | mongodb://localhost:27017/zs |
-| REDIS_URL  | redis 链接地址 | redis://127.0.0.1            |
-
-
+| 参数名     | 注释           | 值                             |
+| ---------- | -------------- | ------------------------------ |
+| APPENV     | 环境变量       | docker                         |
+| PORT       | 端口           | 3000                           |
+| EXPORT_URL | 外部访问的路径 | `http://127.0.0.1:3000`        |
+| MONGO_URL  | mongo 链接地址 | `mongodb://localhost:27017/zs` |
+| REDIS_URL  | redis 链接地址 | `redis://127.0.0.1`            |
 
 ### 使用 docker-compose
 

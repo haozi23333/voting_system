@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   /**
    * 未捕获的错误
    */

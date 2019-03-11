@@ -1,9 +1,10 @@
-const Joi = require('joi');
-const error_code = require('../../config/error_codes');
-const HttpError = require('../common/error');
-const { Vote, Ticket } = require('../models');
-const redis = require('../services/redis');
-const redis_keys = require('../../config/redis_keys');
+import Joi from "joi";
+import error_code from "../../config/error_codes";
+import HttpError from "../common/error";
+import {Ticket, Vote} from "../models";
+
+import redis from "../services/redis";
+import redis_keys from "../../config/redis_keys";
 
 module.exports = {};
 
@@ -14,7 +15,7 @@ module.exports = {};
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.create_vote = async (req, res, next) => {
+export const create_vote = async (req, res, next) => {
   if (!req.user) {
     throw new HttpError('未登录, 无权限', error_code.NOT_LOGGED_IN, null, 401);
   }

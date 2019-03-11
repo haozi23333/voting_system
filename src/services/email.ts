@@ -1,18 +1,18 @@
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const config = require('../../config');
-const redis = require('./redis');
-const redis_keys = require('../../config/redis_keys');
+import nodemailer from "nodemailer";
+import { randomBytes } from "crypto";
+import config from "../../config";
+import redis from "./redis";
+import redis_keys from "../../config/redis_keys";
 
-const transporter = nodemailer.createTransport(config.mail.smtp);
+export const transporter = nodemailer.createTransport(config.mail.smtp);
 
 /**
  * 发送注册邮件
  * @param user
  * @returns {Promise<void>}
  */
-async function send_register_mail(user) {
-  const token = crypto.randomBytes(32).toString('hex');
+export async function send_register_mail(user) {
+  const token = randomBytes(32).toString('hex');
   await redis.set(redis_keys.user_register_email_key(user._id), token, 'EX', 30 * 60 * 1000);
 
   const url = `${config.export_url}/api/email/register_verify?token=${Buffer.from(`${user._id},${token}`).toString('base64')}`;
@@ -32,7 +32,3 @@ async function send_register_mail(user) {
   return url;
 }
 
-module.exports = {
-  nodemailer,
-  send_register_mail,
-};
